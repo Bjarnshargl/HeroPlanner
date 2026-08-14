@@ -17,7 +17,25 @@ CREATE TABLE runes (
 CREATE TABLE heroes (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
-    class TEXT NOT NULL
+    class_id INTEGER NOT NULL,
+    FOREIGN KEY (class_id) REFERENCES hero_classes(id)
+);
+
+CREATE TABLE hero_classes (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE mercenaries (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    class_id INTEGER NOT NULL,
+    FOREIGN KEY (class_id) REFERENCES merc_classes(id)
+);
+
+CREATE TABLE merc_classes (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE hero_slots (
@@ -67,4 +85,16 @@ CREATE TABLE hero_items (
     FOREIGN KEY (slot_id) REFERENCES hero_slots(id),
     FOREIGN KEY (item_id) REFERENCES items(id),
     UNIQUE (hero_id, slot_id)
+);
+
+CREATE TABLE merc_items (
+    id INTEGER PRIMARY KEY,
+    merc_id INTEGER NOT NULL,
+    slot_id INTEGER NOT NULL,
+    item_id INTEGER,
+    collected BOOLEAN NOT NULL DEFAULT 0 CHECK (collected IN (0, 1)),
+    FOREIGN KEY (merc_id) REFERENCES mercenaries(id),
+    FOREIGN KEY (slot_id) REFERENCES merc_slots(id),
+    FOREIGN KEY (item_id) REFERENCES items(id),
+    UNIQUE (merc_id, slot_id)
 );
