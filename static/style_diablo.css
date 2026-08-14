@@ -1,0 +1,126 @@
+/* =========================
+   Diablo Theme
+   ========================= */
+
+body {
+    margin: 0;
+    background-color: #080808;
+    color: #c8c8c8;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+
+/* =========================
+   Navigation
+   ========================= */
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #242424 0%,
+            #111111 45%,
+            #050505 100%
+        );
+
+    border-bottom: 2px solid #6e1515;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.9),
+        0 0 15px rgba(90, 0, 0, 0.3);
+
+    min-height: 65px;
+}
+
+
+/* =========================
+   Navigation Links
+   ========================= */
+
+nav a {
+    color: #a8a8a8;
+    text-decoration: none;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    padding: 22px 20px;
+
+    transition: all 0.2s ease;
+
+    text-shadow:
+        2px 2px 3px #000;
+}
+
+
+/* Hover */
+
+nav a:hover {
+    color: #d12b2b;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(120, 0, 0, 0.35),
+            rgba(60, 0, 0, 0.05)
+        );
+
+    text-shadow:
+        0 0 5px #8b0000,
+        0 0 10px rgba(180, 0, 0, 0.6);
+}
+
+
+/* =========================
+   Main Content
+   ========================= */
+
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 30px;
+}
+
+
+/* =========================
+   Headings
+   ========================= */
+
+h1,
+h2,
+h3 {
+    color: #b82020;
+
+    text-shadow:
+        2px 2px 4px #000,
+        0 0 8px rgba(120, 0, 0, 0.4);
+}
+
+
+/* =========================
+   Diablo-style Panels
+   ========================= */
+
+.diablo-panel {
+    background:
+        linear-gradient(
+            135deg,
+            #1a1a1a,
+            #0b0b0b
+        );
+
+    border: 1px solid #4a1616;
+    border-radius: 2px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 0 0 1px #000,
+        0 5px 15px rgba(0, 0, 0, 0.9),
+        inset 0 0 20px rgba(80, 0, 0, 0.15);
+}
