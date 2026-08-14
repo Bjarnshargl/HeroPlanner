@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Hero Planner
+{% endblock %}
+
+{% block content %}
+    <table>
+        <tbody>
+        <tr>
+            <td><img src="{{ url_for('static', filename='images/char.png') }}" alt="Hero Planner" width="400"></td>
+            <td>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Slot</th>
+                        <th>Item</th>
+                        <th>Collected</th>
+                    </tr>
+                    <tr>
+                        <td >1</td>
+                        <td>Main Hand</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Shield</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Main Hand</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Shield</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Helmet</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Necklace</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Belt</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Ring</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Ring</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Gloves</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>Boots</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Breastplate</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

@@ -7,9 +7,12 @@ app = Flask(__name__)
 # db = SQL("sqlite:///heroes.db")
 
 @app.route('/')
-def hello_world():  # put application's code here
+def index():  # put application's code here
     return render_template("index.html")
 
+@app.route('/hero')
+def hero():  # put application's code here
+    return render_template("hero.html")
 
 if __name__ == '__main__':
     app.run()
