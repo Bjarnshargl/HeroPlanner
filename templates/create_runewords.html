@@ -21,7 +21,6 @@
                     <div>
                         <select name="item_type_id" required>
                             <option value="" disabled selected>Item Type</option>
-
                             {% for type in item_types %}
                                 <option value="{{ type['id'] }}">{{ type['name'] }}</option>
                             {% endfor %}

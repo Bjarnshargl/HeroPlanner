@@ -5,5 +5,70 @@
 {% endblock %}
 
 {% block content %}
-    TODO
+    <table class="table table-hover">
+        <tr>
+            <td>
+                <form action="/create_items" method="post">
+                    <div>
+                        <p>
+                            <input autocomplete="off" autofocus name="name" placeholder="Name" type="text">
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <select name="item_type" required>
+                                <option value="10" selected>no item type</option>
+                                {% for type in item_types %}
+                                    <option value="{{ type['id'] }}">{{ type['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <select name="item_class" required>
+                                <option value="" disabled selected>Item Type</option>
+                                {% for item_class in item_classes %}
+                                    <option value="{{ item_class['id'] }}">{{ item_class['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <select name="runeword" required>
+                                <option value="no runeword" selected>no runeword</option>
+                                {% for runeword in runewords %}
+                                    <option value="{{ runeword['name'] }}">{{ runeword['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <select name="ethereal" required>
+                                <option value="0" selected>Standard</option>
+                                <option value="1">Ethereal</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <input autocomplete="off" autofocus name="url" placeholder="URL" type="text">
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <input autocomplete="off" autofocus name="comment" placeholder="Comment" type="text">
+                        </p>
+                    </div>
+                    <button type="submit">Create Item</button>
+                </form>
+            </td>
+            <td>
+                <img src="{{ url_for('static', filename='images/runes/create_item.png') }}"
+                     alt="Deleting rune words" width="500">
+            </td>
+        </tr>
+    </table>
 {% endblock %}

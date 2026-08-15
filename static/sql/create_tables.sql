@@ -49,12 +49,12 @@ CREATE TABLE items (
     name TEXT NOT NULL,
     type INTEGER NOT NULL,
     item_class INTEGER,
-    runeword_id INTEGER,
+    runeword_name TEXT,
     ethereal BOOLEAN NOT NULL DEFAULT 0 CHECK (ethereal IN (0, 1)),
     url TEXT,
     comment TEXT,
     FOREIGN KEY (type) REFERENCES item_types(id),
-    FOREIGN KEY (item_class) REFERENCES item_classes(id),
+    FOREIGN KEY (item_class) REFERENCES item_classes(id)
 );
 
 CREATE TABLE runewords (
