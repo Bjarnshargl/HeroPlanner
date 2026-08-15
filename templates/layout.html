@@ -12,15 +12,28 @@
 <body>
     <nav>
         <a href="/">Home</a>
-        <a href="/hero">Hero</a>
-        <a href="/items">Items</a>
-        <a href="/rune-words">Rune Words</a>
+                <label>
+            <select name="hero" onchange="window.location.href=this.value;">
+                <option disabled selected>Hero</option>
+                <option value="{{ url_for('show_hero') }}">Show</option>
+                <option value="{{ url_for('create_hero') }}">Create</option>
+                <option value="{{ url_for('delete_hero') }}">Delete</option>
+            </select>
+        </label>
+        <label>
+            <select name="merc" onchange="window.location.href=this.value;">
+                <option disabled selected>Mercenary</option>
+                <option value="{{ url_for('show_merc') }}">Show</option>
+                <option value="{{ url_for('create_merc') }}">Create</option>
+                <option value="{{ url_for('delete_merc') }}">Delete</option>
+            </select>
+        </label>
         <label>
             <select name="items" onchange="window.location.href=this.value;">
                 <option disabled selected>Items</option>
-                <option value="{{ url_for('show_items') }}">Show Items</option>
-                <option value="{{ url_for('create_items') }}">Create Items</option>
-                <option value="{{ url_for('delete_items') }}">Delete Items</option>
+                <option value="{{ url_for('show_items') }}">Show</option>
+                <option value="{{ url_for('create_items') }}">Create</option>
+                <option value="{{ url_for('delete_items') }}">Delete</option>
             </select>
         </label>
         <label>

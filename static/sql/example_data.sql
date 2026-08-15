@@ -8,3 +8,24 @@ INSERT INTO mercenaries(id, name, class_id) VALUES
 (7,'Moo', 4),
 (8,'Ulf', 5),
 (9,'Wulf', 5);
+
+INSERT INTO items(
+    id,
+    name,
+    type,
+    item_class,
+    runeword_id,
+    ethereal,
+    url,
+    comment
+) VALUES (
+          1,
+          'Vampire Gaze',
+          4,
+          6,
+          0,
+          1,
+          'https://diablo.fandom.com/wiki/Vampire_Gaze',
+          'Socketed best with IAS charm'
+         );
+

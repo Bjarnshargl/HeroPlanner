@@ -69,3 +69,9 @@ INSERT INTO hero_classes(id, name) VALUES
 (6, 'Paladin'),
 (7, 'Sorceress'),
 (8, 'Warlock');
+
+INSERT INTO hero_slots(id, name, position) VALUES
+(1, 'Main Hand', 1),
+(2, 'Offhand', 2),
+(3, 'Breastplate', 3),
+(4, 'Helmet', 4);
