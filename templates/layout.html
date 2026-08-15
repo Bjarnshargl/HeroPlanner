@@ -29,6 +29,14 @@
             </select>
         </label>
         <label>
+            <select name="runewords" onchange="window.location.href=this.value;">
+                <option disabled selected>Runewords</option>
+                <option value="{{ url_for('show_runewords') }}">Show</option>
+                <option value="{{ url_for('create_runewords') }}">Create</option>
+                <option value="{{ url_for('delete_runewords') }}">Delete</option>
+            </select>
+        </label>
+        <label>
             <select name="items" onchange="window.location.href=this.value;">
                 <option disabled selected>Items</option>
                 <option value="{{ url_for('show_items') }}">Show</option>

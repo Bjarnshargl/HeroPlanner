@@ -33,14 +33,14 @@ INSERT INTO runes (id, name, tier) VALUES (32, 'Cham', 'high');
 INSERT INTO runes (id, name, tier) VALUES (33, 'Zod', 'high');
 
 INSERT INTO item_classes (id, name) VALUES
-(1, 'base'),
-(2, 'normal'),
-(3, 'magic'),
-(4, 'rare'),
-(5, 'crafted'),
-(6, 'unique'),
-(7, 'set'),
-(8, 'runeword');
+(1, 'Base'),
+(2, 'Normal'),
+(3, 'Magic'),
+(4, 'Rare'),
+(5, 'Crafted'),
+(6, 'Unique'),
+(7, 'Set'),
+(8, 'Runeword');
 
 INSERT INTO item_types(id, name) VALUES
 (1, 'Weapon'),
@@ -51,7 +51,8 @@ INSERT INTO item_types(id, name) VALUES
 (6, 'Belt'),
 (7, 'Boots'),
 (8, 'Necklace'),
-(9, 'Ring');
+(9, 'Ring'),
+(10, 'None');
 
 INSERT INTO merc_classes(id, name) VALUES
 (1,'Act I Rogue'),
@@ -75,3 +76,4 @@ INSERT INTO hero_slots(id, name, position) VALUES
 (2, 'Offhand', 2),
 (3, 'Breastplate', 3),
 (4, 'Helmet', 4);
+

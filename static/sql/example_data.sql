@@ -29,3 +29,19 @@ INSERT INTO items(
           'Socketed best with IAS charm'
          );
 
+INSERT INTO runewords (
+    name,
+    item_type,
+    description
+    ) VALUES
+    ('Exile', 2, 'Ethereal Sacred Targe with +35–45 All Resistances');
+
+INSERT INTO runeword_runes (
+    name,
+    rune_id,
+    position
+    ) VALUES
+    ('Exile', 26, 1),
+    ('Exile', 27, 2),
+    ('Exile', 24, 3),
+    ('Exile', 14, 4);

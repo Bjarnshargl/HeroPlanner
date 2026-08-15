@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Hero Planner
+{% endblock %}
+
+{% block content %}
+    <table>
+        <tr>
+            <td>
+                <form action="/delete_runewords" method="post">
+                    <div>
+                        <p>
+                            <select name="name" required>
+                                <option value="" disabled selected>Runeword</option>
+                                {% for rune in runewords %}
+                                    <option value="{{ rune['name'] }}">{{ rune['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <input type="checkbox" name="runeword" value="1"/>
+                            <label for="runeword">Runeword</label>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <input type="checkbox" name="runeword_list" value="1"/>
+                            <label for="runeword_list">Runeword List</label>
+                        </p>
+                    </div>
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+            <td>
+                <img src="{{ url_for('static', filename='images/runes/runeword_delete.png') }}"
+                     alt="Deleting rune words" width="500">
+            </td>
+        </tr>
+    </table>
+{% endblock %}

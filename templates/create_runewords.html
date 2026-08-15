@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Hero Planner
+{% endblock %}
+
+{% block content %}
+    <table class="table table-hover">
+        <tr>
+            <th>Create Runeword</th>
+            <th>Create Runes List</th>
+        </tr>
+        <tr>
+            <td>
+                <form action="/create_runewords" method="post">
+                    <div>
+                        <p>
+                            <input autocomplete="off" autofocus name="name" placeholder="Name" type="text">
+                        </p>
+                    </div>
+                    <div>
+                        <select name="item_type_id" required>
+                            <option value="" disabled selected>Item Type</option>
+
+                            {% for type in item_types %}
+                                <option value="{{ type['id'] }}">{{ type['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <p>
+                            <input autocomplete="off" autofocus name="description" placeholder="Description"
+                                   type="text">
+                        </p>
+                    </div>
+                    <button type="submit">Create Runeword</button>
+                </form>
+            </td>
+            <td>
+                <form action="/create_runewords" method="post">
+                    <div>
+                        <p>
+                            <select name="rw_name" required>
+                                <option value="" disabled selected>Runeword</option>
+                                {% for runeword in runewords %}
+                                    <option value="{{ runeword['name'] }}">{{ runeword['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <select name="rune_id_1" required>
+                                <option value="" disabled selected>Rune1</option>
+                                {% for rune in runes %}
+                                    <option value="{{ rune['id'] }}">{{ rune['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="rune_id_2" required>
+                                <option value="" disabled selected>Rune2</option>
+                                {% for rune in runes %}
+                                    <option value="{{ rune['id'] }}">{{ rune['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="rune_id_3">
+                                <option value="" disabled selected>Rune3</option>
+                                {% for rune in runes %}
+                                    <option value="{{ rune['id'] }}">{{ rune['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="rune_id_4">
+                                <option value="" disabled selected>Rune4</option>
+                                {% for rune in runes %}
+                                    <option value="{{ rune['id'] }}">{{ rune['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="rune_id_5">
+                                <option value="" disabled selected>Rune5</option>
+                                {% for rune in runes %}
+                                    <option value="{{ rune['id'] }}">{{ rune['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="rune_id_6">
+                                <option value="" disabled selected>Rune6</option>
+                                {% for rune in runes %}
+                                    <option value="{{ rune['id'] }}">{{ rune['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <button type="submit">Create Runes List</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+

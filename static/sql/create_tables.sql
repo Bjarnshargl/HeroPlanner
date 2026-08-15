@@ -44,14 +44,6 @@ CREATE TABLE hero_slots (
     position INTEGER NOT NULL UNIQUE
 );
 
-CREATE TABLE runewords (
-    id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE,
-    item_type INTEGER NOT NULL,
-    description TEXT,
-    FOREIGN KEY (item_type) REFERENCES item_types(id)
-);
-
 CREATE TABLE items (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
@@ -63,17 +55,18 @@ CREATE TABLE items (
     comment TEXT,
     FOREIGN KEY (type) REFERENCES item_types(id),
     FOREIGN KEY (item_class) REFERENCES item_classes(id),
-    FOREIGN KEY (runeword_id) REFERENCES runewords(id)
+);
+
+CREATE TABLE runewords (
+    name TEXT PRIMARY KEY,
+    item_type INTEGER NOT NULL,
+    description TEXT
 );
 
 CREATE TABLE runeword_runes (
-    id INTEGER PRIMARY KEY,
-    runeword_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
     rune_id INTEGER NOT NULL,
-    position INTEGER NOT NULL,
-    FOREIGN KEY (runeword_id) REFERENCES runewords(id),
-    FOREIGN KEY (rune_id) REFERENCES runes(id),
-    UNIQUE (runeword_id, position)
+    position INTEGER NOT NULL
 );
 
 CREATE TABLE hero_items (

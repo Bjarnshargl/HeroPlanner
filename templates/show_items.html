@@ -6,7 +6,6 @@
 
 {% block content %}
     <div class="section">
-
         <h2>Items</h2>
         <table>
             <thead>
@@ -14,7 +13,7 @@
                 <th>Name</th>
                 <th>Type</th>
                 <th>Item Class</th>
-                <th>Runeword ID</th>
+                <th>Runeword</th>
                 <th>ethereal</th>
                 <th>url</th>
                 <th>comment</th>
@@ -26,8 +25,8 @@
                     <td>{{ item.name }}</td>
                     <td>{{ item.type }}</td>
                     <td>{{ item.item_class }}</td>
-                    <td>{{ item.runeword_id }}</td>
-                    <td>{{ item.ethereal }}</td>
+                    <td>{{ "Yes" if item.runeword_id else "No" }}</td>
+                    <td>{{ "Yes" if item.ethereal else "No"}}</td>
                     <td><a href="{{ item.url }}" target="_blank">{{ item.url }}</a></td>
                     <td>{{ item.comment }}</td>
                 </tr>

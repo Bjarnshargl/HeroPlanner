@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Hero Planner
+{% endblock %}
+
+{% block content %}
+    <div class="section">
+        <h2>Runewords</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Rune ID</th>
+                <th>Position</th>
+                <th>Name</th>
+                <th>Tier</th>
+                <th>Item Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for runeword in runewords %}
+                <tr>
+                    <td>{{ runeword.runeword_name }}</td>
+                    <td>{{ runeword.rune_name }}</td>
+                    <td>{{ runeword.tier }}</td>
+                    <td>{{ runeword.rune_id }}</td>
+                    <td>{{ runeword.position }}</td>
+                    <td>{{ runeword.item_type }}</td>
+                    <td>{{ runeword.description }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
