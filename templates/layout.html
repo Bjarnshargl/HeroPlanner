@@ -10,12 +10,25 @@
 </head>
 
 <body>
-
     <nav>
         <a href="/">Home</a>
         <a href="/hero">Hero</a>
         <a href="/items">Items</a>
         <a href="/rune-words">Rune Words</a>
+        <label>
+            <select name="items" onchange="window.location.href=this.value;">
+                <option disabled selected>Items</option>
+                <option value="{{ url_for('show_items') }}">Show Items</option>
+                <option value="{{ url_for('create_items') }}">Create Items</option>
+                <option value="{{ url_for('delete_items') }}">Delete Items</option>
+            </select>
+        </label>
+        <label>
+            <select name="show_runes" onchange="window.location.href=this.value;">
+                <option disabled selected>Runes</option>
+                <option value="{{ url_for('show_runes') }}">Show</option>
+            </select>
+        </label>
     </nav>
 
     <main>

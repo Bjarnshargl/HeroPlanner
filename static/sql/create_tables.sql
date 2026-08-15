@@ -60,6 +60,7 @@ CREATE TABLE items (
     runeword_id INTEGER,
     ethereal BOOLEAN NOT NULL DEFAULT 0 CHECK (ethereal IN (0, 1)),
     url TEXT,
+    comment TEXT,
     FOREIGN KEY (type) REFERENCES item_types(id),
     FOREIGN KEY (item_class) REFERENCES item_classes(id),
     FOREIGN KEY (runeword_id) REFERENCES runewords(id)
