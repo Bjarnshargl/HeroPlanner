@@ -6,6 +6,7 @@ app = Flask(__name__)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///instance/hero.db")
 
+# Test
 
 @app.route('/')
 def index():  # put application's code here
@@ -28,7 +29,7 @@ def show_items():
                                  i.name,
                                  it.name as type,
                                  ic.name as item_class,
-                                 i.runeword_id,
+                                 i.runeword_name,
                                  i.ethereal,
                                  i.url,
                                  i.comment
@@ -39,9 +40,41 @@ def show_items():
     return render_template("show_items.html", items=items)
 
 
-@app.route("/create_items")
+@app.route("/create_items", methods=["GET", "POST"])
 def create_items():
-    return render_template("create_items.html")
+    item_types = db.execute("SELECT id, name FROM item_types ORDER BY name ASC;")
+    item_classes = db.execute("SELECT id, name FROM item_classes ORDER BY name ASC;")
+    runewords = db.execute("SELECT name FROM runewords ORDER BY name ASC;")
+
+    if request.method == "POST":
+        name = str(request.form.get("name"))
+        item_type = request.form.get("item_type")
+        item_class = request.form.get("item_class")
+        runeword_name = request.form.get("runeword") or None
+        ethereal = request.form.get("ethereal")
+        url = request.form.get("url")
+        comment = request.form.get("comment")
+
+        if name and item_type and item_class and ethereal:
+            if not url:
+                url = "no URL"
+            if not comment:
+                comment = "no comment"
+
+        db.execute(
+            """
+            INSERT INTO items
+                (name, type, item_class, runeword_name, ethereal, url, comment)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,name, item_type, item_class, runeword_name, ethereal, url, comment
+        )
+
+        return render_template("create_items.html", item_types=item_types, item_classes=item_classes,
+                               runewords=runewords)
+
+    else:
+        return render_template("create_items.html", item_types=item_types, item_classes=item_classes,
+                               runewords=runewords)
 
 
 @app.route("/delete_items")
@@ -82,7 +115,13 @@ def delete_hero():
 @app.route("/show_runewords")
 def show_runewords():
     runewords = db.execute("""
-                           SELECT rw.name AS runeword_name, rw.description, rr.rune_id, rr.position, r.name AS rune_name, r.tier, it.name as item_type
+                           SELECT rw.name AS runeword_name,
+                                  rw.description,
+                                  rr.rune_id,
+                                  rr.position,
+                                  r.name  AS rune_name,
+                                  r.tier,
+                                  it.name as item_type
                            FROM runewords rw
                                     JOIN runeword_runes rr
                                          ON rw.name = rr.name
@@ -120,7 +159,6 @@ def create_runewords():
 
         # Here comes the runeword runes part:
 
-
         rw_name = str(request.form.get("rw_name"))
         rune_id_1 = request.form.get("rune_id_1")
         rune_id_2 = request.form.get("rune_id_2")
@@ -131,22 +169,28 @@ def create_runewords():
 
         if rw_name is not None:
             if rune_id_1 is not None:
-                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_1, 1)
+                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_1,
+                           1)
 
             if rune_id_2 is not None:
-                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_2, 2)
+                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_2,
+                           2)
 
             if rune_id_3 is not None:
-                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_3, 3)
+                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_3,
+                           3)
 
             if rune_id_4 is not None:
-                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_4, 4)
+                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_4,
+                           4)
 
             if rune_id_5 is not None:
-                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_5, 5)
+                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_5,
+                           5)
 
             if rune_id_6 is not None:
-                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_6, 6)
+                db.execute("INSERT INTO runeword_runes (name, rune_id, position) VALUES (?, ?, ?)", rw_name, rune_id_6,
+                           6)
 
         return render_template("create_runewords.html", item_types=item_types, runes=runes, runewords=runewords)
     else:
