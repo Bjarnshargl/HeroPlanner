@@ -5,5 +5,26 @@
 {% endblock %}
 
 {% block content %}
-    TODO
+    <table>
+        <tr>
+            <td>
+                <form action="/delete_items" method="post">
+                    <div>
+                        <p>
+                            <select name="name" required>
+                                <option value="" disabled selected>Item</option>
+                                {% for item in items %}
+                                    <option value="{{ item['name'] }}">{{ item['name'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+            <td>
+                <img src="{{ url_for('static', filename='images/runes/delete_item.png') }}"
+                     alt="Deleting rune words" width="500">
+            </td>
+        </tr>
+    </table>
 {% endblock %}

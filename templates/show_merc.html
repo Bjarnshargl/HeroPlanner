@@ -1,9 +1,46 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Hero Planner
+Hero Planner
 {% endblock %}
 
 {% block content %}
-    TODO
+<div class="section">
+    <h2>Mercenaries</h2>
+    <form action="/show_merc" method="post">
+        <div>
+            <p>
+                <select name="name" required>
+                    <option value="" disabled selected>Mercenary Name</option>
+                    {% for merc in merc_names %}
+                    <option value="{{ merc['id'] }}">{{ merc['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+        </div>
+        <button type="submit">Show Selection</button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Slot</th>
+            <th>Item</th>
+            <th>Collected</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for merc in mercenaries %}
+        <tr>
+            <td>{{ merc.merc_name }}</td>
+            <td>{{ merc.merc_class_id }}</td>
+            <td>{{ merc.merc_slot_name }}</td>
+            <td>{{ merc.merc_item_name }}</td>
+            <td>{{ merc.merc_item_collected }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

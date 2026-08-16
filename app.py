@@ -6,6 +6,7 @@ app = Flask(__name__)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///instance/hero.db")
 
+
 # Test
 
 @app.route('/')
@@ -66,7 +67,7 @@ def create_items():
             INSERT INTO items
                 (name, type, item_class, runeword_name, ethereal, url, comment)
             VALUES (?, ?, ?, ?, ?, ?, ?)
-            """,name, item_type, item_class, runeword_name, ethereal, url, comment
+            """, name, item_type, item_class, runeword_name, ethereal, url, comment
         )
 
         return render_template("create_items.html", item_types=item_types, item_classes=item_classes,
@@ -77,19 +78,119 @@ def create_items():
                                runewords=runewords)
 
 
-@app.route("/delete_items")
+@app.route("/delete_items", methods=["GET", "POST"])
 def delete_items():
-    return render_template("delete_items.html")
+    items = db.execute("SELECT name FROM items;")
+
+    if request.method == "POST":
+        name = str(request.form.get("name"))
+
+        db.execute("DELETE FROM items WHERE name = ?", name)
+
+        return render_template("delete_items.html", items=items)
+
+    else:
+        runewords = db.execute("SELECT name FROM runewords;")
+        return render_template("delete_items.html", items=items)
 
 
-@app.route("/show_merc")
+@app.route("/show_merc", methods=["GET", "POST"])
 def show_merc():
-    return render_template("show_merc.html")
+    mercenaries = db.execute("""
+    SELECT
+        m.id AS merc_id, 
+        m.name as merc_name, 
+        m.class_id AS merc_class_id, 
+        mi.slot_id as merc_slot_id,
+        ms.name as merc_slot_name, 
+        mi.item_id AS merc_item_id, 
+        i.name AS merc_item_name, 
+        mi.collected AS merc_item_collected
+    FROM mercenaries m
+    JOIN merc_items mi
+    ON mi.merc_id = m.id
+    JOIN items i
+    on mi.item_id = i.id
+    JOIN merc_classes mc
+    ON m.class_id = mc.id
+    JOIN merc_slots ms
+    ON ms.position = mi.slot_id;
+    """)
+    merc_names = db.execute("SELECT id, name FROM mercenaries;")
+    if request.method == "POST":
+        name = int(request.form.get("name"))
+        print(name)
+        print(type(name))
+        if name:
+            print("checked")
+            mercenaries = db.execute("""
+            SELECT
+                m.id AS merc_id, 
+                m.name as merc_name, 
+                m.class_id AS merc_class_id, 
+                mi.slot_id as merc_slot_id,
+                ms.name as merc_slot_name, 
+                mi.item_id AS merc_item_id, 
+                i.name AS merc_item_name, 
+                mi.collected AS merc_item_collected
+            FROM mercenaries m
+            JOIN merc_items mi
+            ON mi.merc_id = m.id
+            JOIN items i
+            on mi.item_id = i.id
+            JOIN merc_classes mc
+            ON m.class_id = mc.id
+            JOIN merc_slots ms
+            ON ms.position = mi.slot_id
+            WHERE m.id = ?;
+            """, name)
+            return render_template("show_merc.html", mercenaries=mercenaries, merc_names=merc_names)
+    return render_template("show_merc.html", mercenaries=mercenaries, merc_names=merc_names)
 
 
-@app.route("/create_merc")
+@app.route("/create_merc", methods=["GET", "POST"])
 def create_merc():
-    return render_template("create_merc.html")
+    merc_classes = db.execute("SELECT id, name FROM merc_classes;")
+    mainhands = db.execute("SELECT id, name FROM items WHERE TYPE=1;")
+    offhands = db.execute("SELECT id, name FROM items WHERE TYPE=2;")
+    breastplates = db.execute("SELECT id, name FROM items WHERE TYPE=3;")
+    helmets = db.execute("SELECT id, name FROM items WHERE TYPE=4;")
+
+    if request.method == "POST":
+        # name merc_class item_1 item_2 item_3 item_4
+        name = str(request.form.get("name"))
+        merc_class = str(request.form.get("merc_class"))
+        item_1 = str(request.form.get("item_1"))
+        item_2 = str(request.form.get("item_2"))
+        item_3 = str(request.form.get("item_3"))
+        item_4 = str(request.form.get("item_4"))
+        collected_1 = str(request.form.get("collected_1"))
+        collected_2 = str(request.form.get("collected_2"))
+        collected_3 = str(request.form.get("collected_3"))
+        collected_4 = str(request.form.get("collected_4"))
+
+
+        if name and merc_class and item_1 and item_2 and item_3 and item_4 and collected_1 and collected_2 and collected_3 and collected_4:
+            db_name = db.execute("SELECT id FROM mercenaries WHERE UPPER(name) = UPPER(?);", name)
+            if len(db_name) == 0:
+                db.execute("INSERT INTO mercenaries (name, class_id) VALUES (?, ?);", name, merc_class)
+                merc_id = db.execute("SELECT id FROM mercenaries WHERE name = ?;", name)[0]['id']
+                db.execute("INSERT INTO merc_items (merc_id, slot_id, item_id, collected) VALUES (?, 1, ?, ?);",
+                           merc_id, item_1, collected_1)
+                db.execute("INSERT INTO merc_items (merc_id, slot_id, item_id, collected) VALUES (?, 2, ?, ?);",
+                           merc_id, item_2, collected_2)
+                db.execute("INSERT INTO merc_items (merc_id, slot_id, item_id, collected) VALUES (?, 3, ?, ?);",
+                           merc_id, item_3, collected_3)
+                db.execute("INSERT INTO merc_items (merc_id, slot_id, item_id, collected) VALUES (?, 4, ?, ?);",
+                           merc_id, item_4, collected_4)
+            else:
+                return render_template("sorry.html", message=name + " already exists.")
+
+        return render_template("create_merc.html", merc_classes=merc_classes, mainhands=mainhands, offhands=offhands,
+                               breastplates=breastplates, helmets=helmets)
+
+    return render_template("create_merc.html", merc_classes=merc_classes, mainhands=mainhands, offhands=offhands,
+                           breastplates=breastplates, helmets=helmets)
 
 
 @app.route("/delete_merc")

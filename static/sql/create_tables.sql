@@ -88,7 +88,10 @@ CREATE TABLE merc_items (
     item_id INTEGER,
     collected BOOLEAN NOT NULL DEFAULT 0 CHECK (collected IN (0, 1)),
     FOREIGN KEY (merc_id) REFERENCES mercenaries(id),
-    FOREIGN KEY (slot_id) REFERENCES merc_slots(id),
-    FOREIGN KEY (item_id) REFERENCES items(id),
-    UNIQUE (merc_id, slot_id)
+    FOREIGN KEY (item_id) REFERENCES items(id)
+);
+
+CREATE TABLE merc_slots (
+    position INTEGER NOT NULL UNIQUE,
+    name TEXT NOT NULL
 );

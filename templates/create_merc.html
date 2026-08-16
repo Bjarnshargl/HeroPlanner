@@ -1,9 +1,93 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Hero Planner
+Hero Planner
 {% endblock %}
 
 {% block content %}
-    TODO
+<table class="table table-hover">
+    <tr>
+        <td>
+            <form action="/create_merc" method="post">
+                <div>
+                    <p>
+                        <input autocomplete="off" autofocus name="name" placeholder="Name" type="text">
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <select name="merc_class" required>
+                            <option value="" disabled selected>Mercenary Class</option>
+                            {% for m_class in merc_classes %}
+                            <option value="{{ m_class['id'] }}">{{ m_class['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                </div>
+                <!-- Items:-->
+                <div>
+                    <p>
+                        <select name="item_1" required>
+                            <option value="" disabled selected>Mercenary Mainhand</option>
+                            {% for item in mainhands %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_1" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <select name="item_2" required>
+                            <option value="" disabled selected>Mercenary Offhand</option>
+                            {% for item in offhands %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_2" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <select name="item_3" required>
+                            <option value="" disabled selected>Mercenary Breastplate</option>
+                            {% for item in breastplates %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_3" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <select name="item_4" required>
+                            <option value="" disabled selected>Mercenary Helmet</option>
+                            {% for item in helmets %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_4" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <button type="submit">Create Mercenary</button>
+            </form>
+        </td>
+        <td>
+            <img src="{{ url_for('static', filename='images/hero/mercenary.png') }}"
+                 alt="Deleting rune words" width="500">
+        </td>
+    </tr>
+</table>
 {% endblock %}

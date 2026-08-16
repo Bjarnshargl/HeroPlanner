@@ -77,3 +77,26 @@ INSERT INTO hero_slots(id, name, position) VALUES
 (3, 'Breastplate', 3),
 (4, 'Helmet', 4);
 
+SELECT
+	m.id AS merc_id,
+	m.name as merc_name,
+	m.class_id AS merc_class_id,
+	mi.slot_id as merc_slot_id,
+	mi.item_id AS merc_item_id,
+	i.name AS merc_item_name,
+	mi.collected AS merc_item_collected
+FROM mercenaries m
+JOIN merc_items mi
+ON mi.merc_id = m.id
+JOIN items i
+on mi.item_id = i.id
+JOIN merc_classes mc
+ON m.class_id = mc.id;
+
+
+INSERT INTO merc_slots (position, name)
+VALUES
+(1, 'Mainhand'),
+(2, 'Offhand'),
+(3, 'Breastplate'),
+(4, 'Helmet');

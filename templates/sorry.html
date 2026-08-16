@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Hero Planner
+{% endblock %}
+
+{% block content %}
+<div>
+    <table>
+        <tr>
+            <td>
+                <img src="{{ url_for('static', filename='images/hero/sorry.png') }}"
+                     alt="Deleting rune words" width="500">
+            </td>
+            <td>
+                {{ message }}
+            </td>
+    </table>
+</div>
+{% endblock %}
+
+
