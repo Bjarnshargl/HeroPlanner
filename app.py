@@ -96,6 +96,7 @@ def delete_items():
 
 @app.route("/show_merc", methods=["GET", "POST"])
 def show_merc():
+    img = None
     mercenaries = db.execute("""
     SELECT
         m.id AS merc_id, 
@@ -118,11 +119,9 @@ def show_merc():
     """)
     merc_names = db.execute("SELECT id, name FROM mercenaries;")
     if request.method == "POST":
-        name = int(request.form.get("name"))
-        print(name)
-        print(type(name))
+        name = str(request.form.get("name"))
+
         if name:
-            print("checked")
             mercenaries = db.execute("""
             SELECT
                 m.id AS merc_id, 
@@ -144,8 +143,92 @@ def show_merc():
             ON ms.position = mi.slot_id
             WHERE m.id = ?;
             """, name)
-            return render_template("show_merc.html", mercenaries=mercenaries, merc_names=merc_names)
-    return render_template("show_merc.html", mercenaries=mercenaries, merc_names=merc_names)
+
+            match name:
+                case "1":
+                    img = "images/hero/a1rogue.png"
+                case "2":
+                    img = "images/hero/a2desert.png"
+                case "3":
+                    img = "images/hero/a3iron.png"
+                case "4":
+                    img = "images/hero/a4ck.png"
+                case "5":
+                    img = "images/hero/a5barb.png"
+
+            print(name)
+            print(img)
+            return render_template("show_merc.html", mercenaries=mercenaries, merc_names=merc_names, img=img)
+
+    return render_template("show_merc.html", mercenaries=mercenaries, merc_names=merc_names, img=img)
+
+@app.route("/edit_merc", methods=["GET", "POST"])
+def edit_merc():
+    img = None
+    mercenaries = db.execute("""
+    SELECT
+        m.id AS merc_id, 
+        m.name as merc_name, 
+        m.class_id AS merc_class_id, 
+        mi.slot_id as merc_slot_id,
+        ms.name as merc_slot_name, 
+        mi.item_id AS merc_item_id, 
+        i.name AS merc_item_name, 
+        mi.collected AS merc_item_collected
+    FROM mercenaries m
+    JOIN merc_items mi
+    ON mi.merc_id = m.id
+    JOIN items i
+    on mi.item_id = i.id
+    JOIN merc_classes mc
+    ON m.class_id = mc.id
+    JOIN merc_slots ms
+    ON ms.position = mi.slot_id;
+    """)
+    merc_names = db.execute("SELECT id, name FROM mercenaries;")
+    if request.method == "POST":
+        name = str(request.form.get("name"))
+
+        if name:
+            mercenaries = db.execute("""
+            SELECT
+                m.id AS merc_id, 
+                m.name as merc_name, 
+                m.class_id AS merc_class_id, 
+                mi.slot_id as merc_slot_id,
+                ms.name as merc_slot_name, 
+                mi.item_id AS merc_item_id, 
+                i.name AS merc_item_name, 
+                mi.collected AS merc_item_collected
+            FROM mercenaries m
+            JOIN merc_items mi
+            ON mi.merc_id = m.id
+            JOIN items i
+            on mi.item_id = i.id
+            JOIN merc_classes mc
+            ON m.class_id = mc.id
+            JOIN merc_slots ms
+            ON ms.position = mi.slot_id
+            WHERE m.id = ?;
+            """, name)
+
+            match name:
+                case "1":
+                    img = "images/hero/a1rogue.png"
+                case "2":
+                    img = "images/hero/a2desert.png"
+                case "3":
+                    img = "images/hero/a3iron.png"
+                case "4":
+                    img = "images/hero/a4ck.png"
+                case "5":
+                    img = "images/hero/a5barb.png"
+
+            print(name)
+            print(img)
+            return render_template("edit_merc.html", mercenaries=mercenaries, merc_names=merc_names, img=img)
+
+    return render_template("edit_merc.html", mercenaries=mercenaries, merc_names=merc_names, img=img)
 
 
 @app.route("/create_merc", methods=["GET", "POST"])
