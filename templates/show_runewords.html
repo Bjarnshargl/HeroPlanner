@@ -1,12 +1,27 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Hero Planner
+Hero Planner
 {% endblock %}
 
 {% block content %}
+<div class="section">
+    <h2>Runewords</h2>
     <div class="section">
-        <h2>Runewords</h2>
+        <h2>Items</h2>
+        <form action="/show_runewords" method="post">
+            <div>
+                <p>
+                    <select name="runeword_name" required>
+                        <option value="" disabled selected>Runeword Name</option>
+                        {% for rune in runewords %}
+                        <option value="{{ rune['runeword_name'] }}">{{ rune['runeword_name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+            </div>
+            <button type="submit">Show Selection</button>
+        </form>
         <table>
             <thead>
             <tr>
@@ -21,17 +36,17 @@
             </thead>
             <tbody>
             {% for runeword in runewords %}
-                <tr>
-                    <td>{{ runeword.runeword_name }}</td>
-                    <td>{{ runeword.rune_name }}</td>
-                    <td>{{ runeword.tier }}</td>
-                    <td>{{ runeword.rune_id }}</td>
-                    <td>{{ runeword.position }}</td>
-                    <td>{{ runeword.item_type }}</td>
-                    <td>{{ runeword.description }}</td>
-                </tr>
+            <tr>
+                <td>{{ runeword.runeword_name }}</td>
+                <td>{{ runeword.rune_name }}</td>
+                <td>{{ runeword.tier }}</td>
+                <td>{{ runeword.rune_id }}</td>
+                <td>{{ runeword.position }}</td>
+                <td>{{ runeword.item_type }}</td>
+                <td>{{ runeword.description }}</td>
+            </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-{% endblock %}
+    {% endblock %}

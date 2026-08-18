@@ -72,10 +72,18 @@ INSERT INTO hero_classes(id, name) VALUES
 (8, 'Warlock');
 
 INSERT INTO hero_slots(id, name, position) VALUES
-(1, 'Main Hand', 1),
-(2, 'Offhand', 2),
-(3, 'Breastplate', 3),
-(4, 'Helmet', 4);
+(1, 'Main Hand 1', 1),
+(2, 'Main Hand 2', 2),
+(3, 'Offhand 1', 3),
+(4, 'Offhand 2', 4),
+(5, 'Helmet', 5),
+(6, 'Necklace', 6),
+(7, 'Belt', 7),
+(8, 'Ring 1', 8),
+(9, 'Ring 2', 9),
+(10, 'Gloves', 10),
+(11, 'Boots', 11),
+(12, 'Breastplate', 12);
 
 SELECT
 	m.id AS merc_id,

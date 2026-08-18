@@ -7,6 +7,19 @@
 {% block content %}
     <div class="section">
         <h2>Items</h2>
+        <form action="/show_items" method="post">
+        <div>
+            <p>
+                <select name="item_id" required>
+                    <option value="" disabled selected>Item Name</option>
+                    {% for item in items %}
+                    <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+        </div>
+        <button type="submit">Show Selection</button>
+    </form>
         <table>
             <thead>
             <tr>

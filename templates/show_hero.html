@@ -1,9 +1,62 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Hero Planner
+Hero Planner
 {% endblock %}
 
 {% block content %}
-    TODO
+<div class="section">
+    <h2>Heroes</h2>
+    <form action="/show_hero" method="post">
+        <div>
+            <p>
+                <select name="name" required>
+                    <option value="" disabled selected>Hero Name</option>
+                    {% for hero in hero_names %}
+                    <option value="{{ hero['id'] }}">{{ hero['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+        </div>
+        <button type="submit">Show Selection</button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Slot</th>
+            <th>Item Name</th>
+            <th>Runeword</th>
+            <th>Ethereal</th>
+            <th>URL</th>
+            <th>Comment</th>
+            <th>Collected</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for hero in heroes %}
+        <tr>
+            <td>{{ hero.hero_name }}</td>
+            <td>{{ hero.hero_class }}</td>
+            <td>{{ hero.item_name }}</td>
+            <td>{{ hero.slot }}</td>
+            <td>{{ hero.runeword_name }}</td>
+            <td>{{ hero.ethereal }}</td>
+            <td>{{ hero.url }}</td>
+            <td>{{ hero.comment }}</td>
+            <td>{{ hero.collected }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>
+                {% if img %}
+                <img src="{{ url_for('static', filename=img) }}"
+                     alt="Show Hero" width="500">
+                {% endif %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}

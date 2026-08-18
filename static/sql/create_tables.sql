@@ -74,11 +74,7 @@ CREATE TABLE hero_items (
     hero_id INTEGER NOT NULL,
     slot_id INTEGER NOT NULL,
     item_id INTEGER,
-    collected BOOLEAN NOT NULL DEFAULT 0 CHECK (collected IN (0, 1)),
-    FOREIGN KEY (hero_id) REFERENCES heroes(id),
-    FOREIGN KEY (slot_id) REFERENCES hero_slots(id),
-    FOREIGN KEY (item_id) REFERENCES items(id),
-    UNIQUE (hero_id, slot_id)
+    collected BOOLEAN NOT NULL DEFAULT 0 CHECK (collected IN (0, 1))
 );
 
 CREATE TABLE merc_items (

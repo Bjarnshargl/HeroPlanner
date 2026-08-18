@@ -47,6 +47,37 @@ Hero Planner
                      alt="Deleting rune words" width="500">
                 {% endif %}
             </td>
+            <div>
+                {% if img %}
+                <td>
+                    <form action="/edit_merc" method="post">
+                        <!-- hidden field for mercenyry id to be transmitted -->
+                        <input type="hidden" name="name" value="{{ merc_id }}">
+                        <div>
+                        <p>Mainhand:</p>
+                            <p><input type="radio" name="collected_1" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_1" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Offhand:</p>
+                            <p><input type="radio" name="collected_2" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_2" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Breastplate:</p>
+                            <p><input type="radio" name="collected_3" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_3" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Helmet:</p>
+                            <p><input type="radio" name="collected_4" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_4" value="1"> Collected</p><br>
+                        </div>
+                        <button type="submit">Update Mercenary</button>
+                    </form>
+                </td>
+                {% endif %}
+            </div>
         </tr>
         </tbody>
     </table>

@@ -1,9 +1,205 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Hero Planner
+Hero Planner
 {% endblock %}
 
 {% block content %}
-    TODO
+<table class="table table-hover">
+    <tr>
+        <td>
+            <form action="/create_hero" method="post">
+                <div>
+                    <p>
+                        <input autocomplete="off" autofocus name="name" placeholder="Name" type="text">
+                    </p>
+                </div>
+                <div>
+                    <p>🦸
+                        <select name="hero_class" required>
+                            <option value="" disabled selected>Class</option>
+                            {% for hero_class in hero_classes %}
+                            <option value="{{ hero_class['id'] }}">{{ hero_class['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                </div>
+                <!-- Items:-->
+                <div>
+                    <p>(1)
+                        <select name="item_1" required>
+                            <option value="" disabled selected>Mainhand 1</option>
+                            {% for item in mainhands %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_1" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>(2)
+                        <select name="item_2" required>
+                            <option value="" disabled selected>Mainhand 2</option>
+                            {% for item in mainhands %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_2" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>(3)
+                        <select name="item_3" required>
+                            <option value="" disabled selected>Offhand 1</option>
+                            {% for item in offhands %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_3" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>(4)
+                        <select name="item_4" required>
+                            <option value="" disabled selected>Offhand 2</option>
+                            {% for item in offhands %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_4" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>(5)
+                        <select name="item_5" required>
+                            <option value="" disabled selected>Helmet</option>
+                            {% for item in helmets %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_5" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>(6)
+                        <select name="item_6" required>
+                            <option value="" disabled selected>Necklace</option>
+                            {% for item in necklaces %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_6" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>(7)
+                        <select name="item_7" required>
+                            <option value="" disabled selected>Belt</option>
+                            {% for item in belts %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_7" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>(8)
+                        <select name="item_8" required>
+                            <option value="" disabled selected>Ring</option>
+                            {% for item in rings %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_8" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>(9)
+                        <select name="item_9" required>
+                            <option value="" disabled selected>Ring</option>
+                            {% for item in rings %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_9" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>(10)
+                        <select name="item_10" required>
+                            <option value="" disabled selected>Gloves</option>
+                            {% for item in gloves %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_10" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>(11)
+                        <select name="item_11" required>
+                            <option value="" disabled selected>Boots</option>
+                            {% for item in boots %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_11" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>(12)
+                        <select name="item_12" required>
+                            <option value="" disabled selected>Breastplate</option>
+                            {% for item in breastplates %}
+                            <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="collected_12" required>
+                            <option value="0" selected>not collected</option>
+                            <option value="1">collected</option>
+                        </select>
+                    </p>
+                </div>
+                <button type="submit">Create Hero</button>
+            </form>
+        </td>
+        <td>
+            <img src="{{ url_for('static', filename='images/hero/char.png') }}"
+                 alt="Deleting rune words" width="500">
+        </td>
+    </tr>
+</table>
 {% endblock %}
