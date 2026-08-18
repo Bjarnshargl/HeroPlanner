@@ -1,9 +1,134 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Hero Planner
+Hero Planner
 {% endblock %}
 
 {% block content %}
-    TODO
+<div class="section">
+    <h2>Heroes</h2>
+    <form action="/edit_hero" method="post">
+        <div>
+            <p>
+                <select name="name" required>
+                    <option value="" disabled selected>Hero Name</option>
+                    {% for hero in hero_names %}
+                    <option value="{{ hero['id'] }}">{{ hero['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+        </div>
+        <button type="submit">Show Selection</button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Item Name</th>
+            <th>Collected</th>
+            <th>Slot</th>
+            <th>Runeword</th>
+            <th>Ethereal</th>
+            <th>URL</th>
+            <th>Comment</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for hero in heroes %}
+        <tr>
+            <td>{{ hero.hero_name }}</td>
+            <td>{{ hero.hero_class }}</td>
+            <td>{{ hero.item_name }}</td>
+            <td>{{ hero.collected }}</td>
+            <td>{{ hero.slot }}</td>
+            <td>{{ hero.runeword_name }}</td>
+            <td>{{ hero.ethereal }}</td>
+            <td>{{ hero.url }}</td>
+            <td>{{ hero.comment }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>
+                {% if img %}
+                <img src="{{ url_for('static', filename=img) }}"
+                     alt="Edit Hero" width="500">
+                {% endif %}
+            </td>
+            <div>
+                {% if img %}
+                <td>
+                    <form action="/edit_hero" method="post">
+                        <!-- hidden field for hero id to be transmitted -->
+                        <input type="hidden" name="name" value="{{ hero_id }}">
+                        <input type="hidden" name="hero_name" value="{{ hero_name }}">
+                        <div>
+                        <p>Main Hand 1:</p>
+                            <p><input type="radio" name="collected_1" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_1" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Main Hand 2:</p>
+                            <p><input type="radio" name="collected_2" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_2" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Offhand 1:</p>
+                            <p><input type="radio" name="collected_3" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_3" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Offhand 2:</p>
+                            <p><input type="radio" name="collected_4" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_4" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Helmet:</p>
+                            <p><input type="radio" name="collected_5" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_5" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Necklace:</p>
+                            <p><input type="radio" name="collected_6" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_6" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Belt:</p>
+                            <p><input type="radio" name="collected_7" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_7" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Ring 1:</p>
+                            <p><input type="radio" name="collected_8" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_8" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Ring 2:</p>
+                            <p><input type="radio" name="collected_9" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_9" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Gloves:</p>
+                            <p><input type="radio" name="collected_10" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_10" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Boots:</p>
+                            <p><input type="radio" name="collected_11" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_11" value="1"> Collected</p><br>
+                        </div>
+                        <div>
+                        <p>Breastplate:</p>
+                            <p><input type="radio" name="collected_12" value="0" checked> Not Collected</p>
+                            <p><input type="radio" name="collected_12" value="1"> Collected</p><br>
+                        </div>
+                        <button type="submit">Update Hero</button>
+                    </form>
+                </td>
+                {% endif %}
+            </div>
+        </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}

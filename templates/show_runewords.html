@@ -14,8 +14,8 @@ Hero Planner
                 <p>
                     <select name="runeword_name" required>
                         <option value="" disabled selected>Runeword Name</option>
-                        {% for rune in runewords %}
-                        <option value="{{ rune['runeword_name'] }}">{{ rune['runeword_name'] }}</option>
+                        {% for rune in runeword_names %}
+                        <option value="{{ rune['name'] }}">{{ rune['name'] }}</option>
                         {% endfor %}
                     </select>
                 </p>
