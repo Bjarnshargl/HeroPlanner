@@ -16,6 +16,8 @@ Runes are special items in Diablo II that can be inserted into suitable socketed
 
 The **Runes** section allows users to view the available runes and use them as part of their planning process. Keeping track of runes is particularly useful when preparing a character because powerful runewords can require several specific runes, some of which may be relatively difficult to obtain.
 
+Available operations:
+
 - **Show** available runes
 
 ### Runewords
