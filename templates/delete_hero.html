@@ -1,9 +1,56 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Hero Planner
+Hero Planner
 {% endblock %}
 
 {% block content %}
-    TODO
+<div class="section">
+    <h2>Heroes</h2>
+    <form action="/delete_hero" method="post">
+        <div>
+            <p>
+                <select name="name" required>
+                    <option value="" disabled selected>Hero Name</option>
+                    {% for hero in hero_names %}
+                    <option value="{{ hero['name'] }}">{{ hero['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+        </div>
+        <button type="submit">Show Selection</button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Class</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for hero in heroes %}
+        <tr>
+            <td>{{ hero.hero_name }}</td>
+            <td>{{ hero.hero_class }}</td>
+        </tr>
+        {% endfor %}
+        {% if img %}
+        <tr>
+            <td>
+                <img src="{{ url_for('static', filename=img) }}"
+                     alt="Deleting heroenary" width="500">
+            </td>
+            <td>
+                <form action="/delete_hero" method="post">
+                    <!-- hidden field for heroes id to be transmitted -->
+                    <input type="hidden" name="delete_hero_name" value="{{ hero_name }}">
+                    <input type="hidden" name="name" value="{{ hero_name }}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

@@ -13,6 +13,10 @@ db = SQL("sqlite:///instance/hero.db")
 def index():  # put application's code here
     return render_template("index.html")
 
+@app.route('/about')
+def about():  # put application's code here
+    return render_template("about.html")
+
 
 @app.route('/hero')
 def hero():  # put application's code here
@@ -408,24 +412,22 @@ def delete_merc():
 def show_hero():
     img = None
     heroes = db.execute("""
-    SELECT
-        h.id AS hero_id,
-        h.name AS hero_name,
-        h.class_id AS hero_class,
-        i.name AS item_name,
-        hs.name AS slot,
-        i.runeword_name AS runeword_name,
-        i.ethereal AS ethereal,
-        i.url AS url,
-        i.comment AS comment,
-        hi.collected AS collected
-    FROM hero_items hi
-    JOIN heroes h
-    ON hi.hero_id = h.name
-    JOIN hero_slots hs
-    ON hi.slot_id = hs.position
-    JOIN items i
-    ON i.id = hi.item_id;
+        SELECT
+            h.id AS hero_id,
+            h.name AS hero_name,
+            hc.name AS hero_class,
+            i.name AS item_name,
+            hs.name AS slot,
+            i.runeword_name AS runeword_name,
+            i.ethereal AS ethereal,
+            i.url AS url,
+            i.comment AS comment,
+            hi.collected AS collected
+        FROM hero_items hi
+        JOIN heroes h ON hi.hero_id = h.name
+        JOIN hero_slots hs ON hi.slot_id = hs.position
+        JOIN items i ON i.id = hi.item_id
+        JOIN hero_classes hc ON hc.id = h.class_id;
     """)
     hero_names = db.execute("SELECT id, name FROM heroes;")
     if request.method == "POST":
@@ -437,25 +439,23 @@ def show_hero():
 
         if hero_id:
             heroes = db.execute("""
-            SELECT
-                h.id AS hero_id,
-                h.name AS hero_name,
-                h.class_id AS hero_class,
-                i.name AS item_name,
-                hs.name AS slot,
-                i.runeword_name AS runeword_name,
-                i.ethereal AS ethereal,
-                i.url AS url,
-                i.comment AS comment,
-                hi.collected AS collected
-            FROM hero_items hi
-            JOIN heroes h
-            ON hi.hero_id = h.name
-            JOIN hero_slots hs
-            ON hi.slot_id = hs.position
-            JOIN items i
-            ON i.id = hi.item_id
-            WHERE h.id = ?;
+                SELECT
+                    h.id AS hero_id,
+                    h.name AS hero_name,
+                    hc.name AS hero_class,
+                    i.name AS item_name,
+                    hs.name AS slot,
+                    i.runeword_name AS runeword_name,
+                    i.ethereal AS ethereal,
+                    i.url AS url,
+                    i.comment AS comment,
+                    hi.collected AS collected
+                FROM hero_items hi 
+                JOIN heroes h ON hi.hero_id = h.name
+                JOIN hero_slots hs ON hi.slot_id = hs.position
+                JOIN items i ON i.id = hi.item_id
+                JOIN hero_classes hc ON hc.id = h.class_id
+                WHERE h.id = ?; 
             """, int(hero_id))
 
             if hero_class:
@@ -482,9 +482,141 @@ def show_hero():
     return render_template("show_hero.html", heroes=heroes, hero_names=hero_names, img=img)
 
 
-@app.route("/edit_hero")
+@app.route("/edit_hero", methods=["GET", "POST"])
 def edit_hero():
-    return render_template("edit_hero.html")
+    img = None
+    heroes = db.execute("""
+        SELECT
+            h.id AS hero_id,
+            h.name AS hero_name,
+            hc.name AS hero_class,
+            i.name AS item_name,
+            hs.name AS slot,
+            i.runeword_name AS runeword_name,
+            i.ethereal AS ethereal,
+            i.url AS url,
+            i.comment AS comment,
+            hi.collected AS collected
+        FROM hero_items hi
+        JOIN heroes h ON hi.hero_id = h.name
+        JOIN hero_slots hs ON hi.slot_id = hs.position
+        JOIN items i ON i.id = hi.item_id
+        JOIN hero_classes hc ON hc.id = h.class_id;
+    """)
+    hero_names = db.execute("SELECT id, name FROM heroes;")
+
+    if request.method == "POST":
+        hero_id = request.form.get("name")
+        print("HERO_ID: " + str(hero_id))
+
+        if hero_id:
+            hero_id = int(hero_id)
+            hero_class = db.execute("SELECT class_id FROM heroes WHERE id = ?;", hero_id)[0]['class_id']
+            print("HERO_CLASS: " + str(hero_class))
+
+            heroes = db.execute("""
+                SELECT
+                    h.id AS hero_id,
+                    h.name AS hero_name,
+                    hc.name AS hero_class,
+                    i.name AS item_name,
+                    hs.name AS slot,
+                    i.runeword_name AS runeword_name,
+                    i.ethereal AS ethereal,
+                    i.url AS url,
+                    i.comment AS comment,
+                    hi.collected AS collected
+                FROM hero_items hi
+                JOIN heroes h ON hi.hero_id = h.name
+                JOIN hero_slots hs ON hi.slot_id = hs.position
+                JOIN items i ON i.id = hi.item_id
+                JOIN hero_classes hc ON hc.id = h.class_id
+                WHERE h.id = ?;
+            """, int(hero_id))
+
+            if hero_class:
+                match str(hero_class):
+                    case "1":
+                        img = "images/classes/amazon.png"
+                    case "2":
+                        img = "images/classes/assasin.png"
+                    case "3":
+                        img = "images/classes/Barbarian.png"
+                    case "4":
+                        img = "images/classes/Druid.png"
+                    case "5":
+                        img = "images/classes/Necromancer.png"
+                    case "6":
+                        img = "images/classes/Paladin.png"
+                    case "7":
+                        img = "images/classes/Sorceress.png"
+                    case "8":
+                        img = "images/classes/Warlock.png"
+
+            collected_1 = request.form.get("collected_1")
+            collected_2 = request.form.get("collected_2")
+            collected_3 = request.form.get("collected_3")
+            collected_4 = request.form.get("collected_4")
+            collected_5 = request.form.get("collected_5")
+            collected_6 = request.form.get("collected_6")
+            collected_7 = request.form.get("collected_7")
+            collected_8 = request.form.get("collected_8")
+            collected_9 = request.form.get("collected_9")
+            collected_10 = request.form.get("collected_10")
+            collected_11 = request.form.get("collected_11")
+            collected_12 = request.form.get("collected_12")
+
+            print("COLLECTED_1: " + str(collected_1))
+
+            if collected_1 and collected_2 and collected_3 and collected_4 and collected_5 and collected_6 and collected_7 and collected_8 and collected_9 and collected_10 and collected_11 and collected_12:
+                collected_1 = int(collected_1)
+                collected_2 = int(collected_2)
+                collected_3 = int(collected_3)
+                collected_4 = int(collected_4)
+                collected_5 = int(collected_5)
+                collected_6 = int(collected_6)
+                collected_7 = int(collected_7)
+                collected_8 = int(collected_8)
+                collected_9 = int(collected_9)
+                collected_10 = int(collected_10)
+                collected_11 = int(collected_11)
+                collected_12 = int(collected_12)
+
+                print("2 HERO_ID: " + str(hero_id))
+                print("2 HERO_CLASS: " + str(hero_class))
+
+                hero_name = db.execute("SELECT name FROM heroes WHERE id = ?;", hero_id)[0]['name']
+                # hero_name = request.form.get("name")
+                print("2 HERO_NAME: " + str(hero_name))
+
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 1; ", collected_1,
+                           hero_name)
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 2; ", collected_2,
+                           hero_name)
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 3; ", collected_3,
+                           hero_name)
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 4; ", collected_4,
+                           hero_name)
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 5; ", collected_5,
+                           hero_name)
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 6; ", collected_6,
+                           hero_name)
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 7; ", collected_7,
+                           hero_name)
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 8; ", collected_8,
+                           hero_name)
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 9; ", collected_9,
+                           hero_name)
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 10; ", collected_10,
+                           hero_name)
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 11; ", collected_11,
+                           hero_name)
+                db.execute("UPDATE hero_items SET collected = ? WHERE hero_id = ? AND slot_id = 12; ", collected_12,
+                           hero_name)
+
+            return render_template("edit_hero.html", heroes=heroes, hero_names=hero_names, img=img, hero_id=hero_id)
+
+    return render_template("edit_hero.html", heroes=heroes, hero_names=hero_names, img=img)
 
 
 @app.route("/create_hero", methods=["GET", "POST"])
@@ -584,13 +716,64 @@ def create_hero():
                            necklaces=necklaces, rings=rings, miscellaneous=miscellaneous, hero_classes=hero_classes)
 
 
-@app.route("/delete_hero")
+@app.route("/delete_hero", methods=["GET", "POST"])
 def delete_hero():
-    return render_template("delete_hero.html")
+    img = None
+    heroes = db.execute("""
+        SELECT h.name AS hero_name, c.name AS hero_class
+        FROM heroes h JOIN hero_classes c ON h.class_id = c.id;
+    """)
+    hero_names = db.execute("SELECT id, name FROM heroes;")
+
+    if request.method == "POST":
+        hero_name = request.form.get("name")
+        print("HERO_ID: " + str(hero_name))
+
+        if hero_name:
+            hero_class = db.execute("SELECT class_id FROM heroes WHERE name = ?;", hero_name)[0]['class_id']
+            print("HERO_CLASS: " + str(hero_class))
+
+            heroes = db.execute("""
+                SELECT h.id AS hero_id, h.name AS hero_name, c.name AS hero_class
+                FROM heroes h JOIN hero_classes c ON h.class_id = c.id
+                WHERE h.name = ?;
+            """, hero_name)
+
+            if hero_class:
+                match str(hero_class):
+                    case "1":
+                        img = "images/classes/amazon.png"
+                    case "2":
+                        img = "images/classes/assasin.png"
+                    case "3":
+                        img = "images/classes/Barbarian.png"
+                    case "4":
+                        img = "images/classes/Druid.png"
+                    case "5":
+                        img = "images/classes/Necromancer.png"
+                    case "6":
+                        img = "images/classes/Paladin.png"
+                    case "7":
+                        img = "images/classes/Sorceress.png"
+                    case "8":
+                        img = "images/classes/Warlock.png"
+
+                delete_hero_name = request.form.get("delete_hero_name")
+                print("DELETE_HERO_NAME: " + str(delete_hero_name))
+
+                if delete_hero_name:
+                    db.execute("DELETE FROM hero_items where hero_id = ?;", delete_hero_name)
+                    db.execute("DELETE FROM heroes where name = ?;", delete_hero_name)
+                    return render_template("deleted_hero.html")
+
+            return render_template("delete_hero.html", heroes=heroes, hero_names=hero_names, img=img, hero_name=hero_name)
+
+    return render_template("delete_hero.html", heroes=heroes, hero_names=hero_names, img=img)
 
 
 @app.route("/show_runewords", methods=["GET", "POST"])
 def show_runewords():
+    runeword_names = db.execute("SELECT DISTINCT name FROM runeword_runes;")
     runewords = db.execute("""
                            SELECT rw.name AS runeword_name,
                                   rw.description,
@@ -629,7 +812,7 @@ def show_runewords():
                                    WHERE rw.name = ?
                                    ORDER BY rw.name, rr.position;""", runeword_name)
 
-    return render_template("show_runewords.html", runewords=runewords)
+    return render_template("show_runewords.html", runewords=runewords, runeword_names=runeword_names)
 
 
 @app.route("/create_runewords", methods=["GET", "POST"])
@@ -711,7 +894,7 @@ def delete_runewords():
         if runeword == "1":
             db.execute("DELETE FROM runewords WHERE name = ?", name)
 
-        return render_template("delete_runewords.html", runewords=runewords)
+        return render_template("deleted_runewords.html", runewords=runewords)
 
     else:
         runewords = db.execute("SELECT name FROM runewords;")

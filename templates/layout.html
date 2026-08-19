@@ -12,7 +12,7 @@
 <body>
     <nav>
         <a href="/">Home</a>
-                <label>
+        <label>
             <select name="hero" onchange="window.location.href=this.value;">
                 <option disabled selected>Hero</option>
                 <option value="{{ url_for('show_hero') }}">Show</option>
@@ -52,6 +52,7 @@
                 <option value="{{ url_for('show_runes') }}">Show</option>
             </select>
         </label>
+        <a href="/about">About</a>
     </nav>
 
     <main>

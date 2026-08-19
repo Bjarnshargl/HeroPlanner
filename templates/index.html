@@ -1,9 +1,14 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Hero Planner
+Hero Planner
 {% endblock %}
 
 {% block content %}
-    Hi!
+<div style="display: flex; justify-content: center;">
+    <img src="{{ url_for('static', filename='images/hero/home.png') }}"
+                     alt="Deleting rune words" style="height: 80vh; width: auto;">
+</div>
 {% endblock %}
+
+
