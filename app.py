@@ -465,17 +465,17 @@ def show_hero():
                     case "2":
                         img = "images/classes/assasin.png"
                     case "3":
-                        img = "images/classes/Barbarian.png"
+                        img = "images/classes/barbarian.png"
                     case "4":
-                        img = "images/classes/Druid.png"
+                        img = "images/classes/druid.png"
                     case "5":
-                        img = "images/classes/Necromancer.png"
+                        img = "images/classes/necromancer.png"
                     case "6":
-                        img = "images/classes/Paladin.png"
+                        img = "images/classes/paladin.png"
                     case "7":
-                        img = "images/classes/Sorceress.png"
+                        img = "images/classes/sorceress.png"
                     case "8":
-                        img = "images/classes/Warlock.png"
+                        img = "images/classes/warlock.png"
             print(img)
             return render_template("show_hero.html", heroes=heroes, hero_names=hero_names, img=img)
 
@@ -541,17 +541,17 @@ def edit_hero():
                     case "2":
                         img = "images/classes/assasin.png"
                     case "3":
-                        img = "images/classes/Barbarian.png"
+                        img = "images/classes/barbarian.png"
                     case "4":
-                        img = "images/classes/Druid.png"
+                        img = "images/classes/druid.png"
                     case "5":
-                        img = "images/classes/Necromancer.png"
+                        img = "images/classes/necromancer.png"
                     case "6":
-                        img = "images/classes/Paladin.png"
+                        img = "images/classes/paladin.png"
                     case "7":
-                        img = "images/classes/Sorceress.png"
+                        img = "images/classes/sorceress.png"
                     case "8":
-                        img = "images/classes/Warlock.png"
+                        img = "images/classes/warlock.png"
 
             collected_1 = request.form.get("collected_1")
             collected_2 = request.form.get("collected_2")
