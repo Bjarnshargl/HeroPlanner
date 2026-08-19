@@ -86,24 +86,7 @@ For example, a player could plan a new character several weeks before actually c
 
 This makes Hero Planner useful as both a **character planning tool** and a **collection tracking tool**.
 
-## Technology
-
-Hero Planner is built with **Python** as its main programming language.
-
-The web application uses the following technologies:
-
-- **Python** – Main programming language
-- **Flask** – Web application framework
-- **Jinja** – Template engine for dynamically generated HTML pages
-- **SQLite3** – Database for storing application data
-- **HTML** – Structure of the web interface
-- **CSS** – Styling and visual presentation
-
-Flask handles the application's routes and server-side logic. Jinja is used to generate HTML pages dynamically based on the application's data. SQLite3 provides a lightweight relational database without requiring a separate database server.
-
-The combination of these technologies keeps the project relatively lightweight while still providing all the functionality required for a database-driven web application.
-
-## Project Structure
+## Technology and Project Structure
 
 The application is separated into several components that work together:
 
