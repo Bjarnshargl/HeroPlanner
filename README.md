@@ -1,5 +1,3 @@
-
-```markdown
 # Hero Planner
 #### Video Demo: https://www.youtube.com/watch?v=82Vgeo6hhIY
 #### Description:
@@ -124,7 +122,7 @@ Rather than relying on external notes, spreadsheets, or memory, players can use 
 The application is especially useful for players who enjoy planning their next character in advance and collecting the necessary equipment before starting a new playthrough.
 
 Ultimately, Hero Planner turns the preparation for a new Diablo II character into a more structured process by providing a dedicated place to plan builds, manage equipment, and track what has already been collected and what still needs to be found.
-```
+
 
 
 
